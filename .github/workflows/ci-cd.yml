@@ -1,0 +1,64 @@
+name: CI/CD Python para GitHub Pages
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# Permissões necessárias para publicar no GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  # ETAPA 1: Integração Contínua (CI)
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar código do repositório
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar dependências
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Executar testes automatizados (CI)
+        run: |
+          pytest src/test_app.py
+
+      - name: Gerar arquivos do site
+        run: |
+          python src/app.py
+
+      # Prepara os arquivos da pasta public/ como artefato web
+      - name: Upload do artefato para Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: 'public/'
+
+  # ETAPA 2: Entrega/Deploy Contínuo (CD) - roda apenas na branch main
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - name: Deploy para GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
