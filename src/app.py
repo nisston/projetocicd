@@ -3,7 +3,7 @@ from datetime import datetime
 
 def gerar_mensagem(nome):
     if not nome:
-        raise ValueError("O nome não pode ser vazio!")
+        raise ValueError("O nome não pode ser vaziooooooooo!")
     return f"Olá, {nome}! Este site foi construído e publicado automaticamente via CI/CD."
 
 def main():
