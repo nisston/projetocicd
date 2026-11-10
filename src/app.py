@@ -36,7 +36,7 @@ def main():
     os.makedirs("public", exist_ok=True)
     with open("public/index.html", "w", encoding="utf-8") as f:
         f.write(html)
-    print("Site HTML gerado com sucesso na pasta public/!")
+    print("Site HTML gerado com sucesso na pasta publicooooooo/!")
 
 if __name__ == "__main__":
     main()
