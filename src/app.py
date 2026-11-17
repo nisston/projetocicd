@@ -4,7 +4,7 @@ from datetime import datetime
 def gerar_mensagem(nome):
     if not nome:
         raise ValueError("O nome não pode ser vaziooooo!")
-    return f"Olá, {nome}! Este site foi const licado automaticamente via CI/CD."
+    return f"Olá, {nome}! Este site foi const licado automaticamente ........via CI/CD."
 
 def main():
     mensagem = gerar_mensagem("Turma de Computação")
