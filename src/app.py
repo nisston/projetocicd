@@ -25,7 +25,7 @@ def main():
 </head>
 <body>
     <div class="card">
-        <h1>🚀 Deploy com Sucesso!</h1>
+        <h1>Deploy com Sucesso!</h1>
         <p>{mensagem}</p>
         <p><small>Última atualização: {data_atual}</small></p>
     </div>
